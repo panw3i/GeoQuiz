@@ -16,11 +16,28 @@ public class MainActivity extends AppCompatActivity {
     private TextView mQestionView;
     private int mCurrentIndex = 0;
     private Question[] mMQuestionBank;
+    private static final String KEY_VALUE = "index";
+
+
+
+    // 重写父类的 onSaveInstanceState 方法用来保存当前的数据序列
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_VALUE,mCurrentIndex);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 在旋转屏幕后保持界面不变
+        if (savedInstanceState != null){
+            mCurrentIndex = savedInstanceState.getInt(KEY_VALUE);
+        }
+
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
@@ -28,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mPre = (Button) findViewById(R.id.pre_button);
         mQestionView = (TextView) findViewById(R.id.question_text_view);
 
-
+        // 数据来源
         mMQuestionBank = new Question[]{
                 new Question(R.string.question01, true),
                 new Question(R.string.question02, true),
