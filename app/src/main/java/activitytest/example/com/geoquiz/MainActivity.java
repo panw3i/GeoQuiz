@@ -96,10 +96,32 @@ public class MainActivity extends AppCompatActivity {
                 Question question = mMQuestionBank[mCurrentIndex];
                 Boolean result = question.isAnswerTure();
                 Intent intent = CheatActivity.newIntent(MainActivity.this, result);
-                startActivity(intent);
+//                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
+        
+        
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+        if (resultCode != RESULT_OK){
+            return;
+        }
+        
+        if (requestCode == 1){
+            if (data == null){
+                return;
+            }
+
+            boolean show = data.getBooleanExtra("show", false);
+            Toast.makeText(this, "您已经查看过结果了!", Toast.LENGTH_SHORT).show();
+        }
+        
     }
 
     private void preQuestion() {

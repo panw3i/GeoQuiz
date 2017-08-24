@@ -31,8 +31,17 @@ public class CheatActivity extends AppCompatActivity {
                 } else {
                     answer_text_view.setText("错误");
                 }
+
+                setResultShownResult(true);
             }
         });
+
+    }
+
+    private void setResultShownResult(boolean isAnswerShown) {
+        Intent data = new Intent();
+        data.putExtra("show",isAnswerShown);
+        setResult(RESULT_OK,data);
 
     }
 
@@ -40,7 +49,6 @@ public class CheatActivity extends AppCompatActivity {
     public static Intent newIntent(Context context, boolean answerIsTrue){
         Intent intent = new Intent(context,CheatActivity.class);
         intent.putExtra("result",answerIsTrue);
-
 
         return intent;
     }
