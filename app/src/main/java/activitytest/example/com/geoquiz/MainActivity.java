@@ -1,5 +1,6 @@
 package activitytest.example.com.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,7 +14,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mFalseButton;
     private Button mNext;
     private Button mPre;
+    private Button mCheatButton;
     private TextView mQestionView;
+
     private int mCurrentIndex = 0;
     private Question[] mMQuestionBank;
     private static final String KEY_VALUE = "index";
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+
         mNext = (Button) findViewById(R.id.next_button);
         mPre = (Button) findViewById(R.id.pre_button);
         mQestionView = (TextView) findViewById(R.id.question_text_view);
@@ -83,6 +88,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this,CheatActivity.class);
+//                startActivity(intent);
+                Question question = mMQuestionBank[mCurrentIndex];
+                Boolean result = question.isAnswerTure();
+                Intent intent = CheatActivity.newIntent(MainActivity.this, result);
+                startActivity(intent);
+            }
+        });
 
     }
 
